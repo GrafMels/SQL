@@ -1,0 +1,6 @@
+SELECT 3+5;
+
+SELECT 3-5;
+
+SELECT 3/0;
+
