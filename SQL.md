@@ -144,3 +144,77 @@ SELECT COUNT([поля_выборки]) FROM [имя_таблицы]; - колл
 
 SELECT COUNT(*) FROM product; - колличество строк в таблице продукт
 
+# Операторы обьединения
+
+* Union - приращивает снизу к табличке 1, табличку 2 колличество полей у обоих таблиц должны совпадать(выдаёт только уникальные значения)
+
+SELECT firstname, lastname
+FROM users
+UNION ALL SELECT firstname, lastname 
+FROM other_users;
+
+SELECT 'Не Люблю', 'Цифру 5', phone
+FROM users
+WHERE phone 
+LIKE '%5%'
+UNION SELECT firstname, lastname, phone 
+FROM users;
+
+* Union ALL - приращивает снизу к табличке 1, табличку 2 колличество полей у обоих таблиц должны совпадать
+
+SELECT firstname, lastname
+FROM users
+UNION SELECT firstname, lastname 
+FROM other_users
+UNION ALL SELECT firstname, lastname 
+FROM other_users;(Прирастить две одинаковые таблички 2 снизу)
+
+* Join
+
+![Join](zzzphoto/md_photo_1.png)
+
+# Подзапросы
+
+* IN - ПРоверяет на присутсвие
+
+SELECT * 
+FROM [таблица_1]
+WHERE [поле_таблицы_1]
+IN (SELECT [поле_таблицы_2]
+    FROM [таблица_2])
+
+Пример
+
+SELECT *
+FROM users
+WHERE firstname IN (SELECT first_name FROM other_users);
+
+(Проверяем есть ли имена из таблички 2, в  табличке 1)
+
+SELECT *
+FROM users
+WHERE firstname NOT IN (SELECT first_name FROM other_users);\
+
+(Выводит имена которых небыло)
+
+* EXISTS
+
+SELECT *
+FROM users
+WHERE EXISTS (SELECT * 
+			  FROM other_users 
+              WHERE users.firstname = other_users.first_name);
+
+(Проверяем есть ли имена из таблички 2, в  табличке 1)
+
+* Копирование таблиц
+
+CREATE TABLE [имя_новой_таблицы] 
+SELECT *
+FROM [старая_табличка];
+
+
+
+
+
+
