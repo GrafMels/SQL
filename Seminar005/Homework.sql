@@ -19,3 +19,13 @@ FROM media
 JOIN users
 ON users.id = media.user_id
 GROUP BY user_id;
+
+# 4 через CTE
+WITH name_ (news_count, user_id, email) AS (
+SELECT COUNT(media.id), media.user_id, users.email
+FROM media
+JOIN users
+ON users.id = media.user_id
+GROUP BY user_id
+)
+SELECT * FROM name_;
